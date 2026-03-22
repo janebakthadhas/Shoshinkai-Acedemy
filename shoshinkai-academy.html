@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shoshinkai Academy – The Way of the Beginner's Heart</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --red: #C8102E;
+    --deep-red: #8B0000;
+    --black: #0a0a0a;
+    --charcoal: #111111;
+    --dark: #1a1a1a;
+    --mid: #2a2a2a;
+    --light: #f5f0eb;
+    --cream: #FAF6F0;
+    --gold: #C9A84C;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--light);
+    font-family: 'Crimson Pro', Georgia, serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(200,16,46,0.3);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem; color: var(--red);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Cinzel', serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--light); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--red); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    background: var(--black);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(139,0,0,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,16,46,0.08) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,16,46,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,16,46,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift {
+    from { transform: translateY(0); }
+    to { transform: translateY(60px); }
+  }
+
+  /* Kanji watermark */
+  .hero-kanji {
+    position: absolute; right: 5%; top: 50%;
+    transform: translateY(-50%);
+    font-size: 28vw; line-height: 1;
+    color: rgba(200,16,46,0.05);
+    font-family: serif;
+    user-select: none; pointer-events: none;
+    animation: kanjiPulse 6s ease-in-out infinite;
+  }
+  @keyframes kanjiPulse {
+    0%,100% { opacity: 0.4; transform: translateY(-50%) scale(1); }
+    50% { opacity: 0.7; transform: translateY(-50%) scale(1.02); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; max-width: 860px; padding: 2rem;
+  }
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 1.1; color: var(--white);
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-title span { color: var(--red); display: block; }
+  .hero-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.3rem; font-style: italic; color: rgba(245,240,235,0.7);
+    margin: 1.5rem 0 2.5rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .hero-divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .btn-primary {
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: var(--red); color: var(--white);
+    padding: 1rem 2.5rem; border: none; cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { background: var(--deep-red); transform: translateY(-2px); }
+  .btn-outline {
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: transparent; color: var(--light);
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(245,240,235,0.3); cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: border-color 0.3s, color 0.3s;
+    text-decoration: none;
+  }
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 4rem;
+    animation: fadeUp 0.8s 0.8s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem; color: var(--red); display: block;
+  }
+  .stat-label {
+    font-family: 'Cinzel', serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(245,240,235,0.5);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 2rem; }
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--white); line-height: 1.2; margin-bottom: 1.5rem;
+  }
+  .section-body {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.2rem; line-height: 1.9;
+    color: rgba(245,240,235,0.75);
+    max-width: 600px;
+  }
+  .red-line {
+    width: 60px; height: 3px; background: var(--red);
+    margin-bottom: 2rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--charcoal);
+    position: relative; overflow: hidden;
+  }
+  #about::before {
+    content: '空手'; position: absolute;
+    font-size: 20rem; color: rgba(200,16,46,0.04);
+    right: -2rem; bottom: -3rem;
+    font-family: serif; line-height: 1;
+    user-select: none;
+  }
+  .about-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: var(--mid);
+    border: 1px solid rgba(200,16,46,0.2);
+    padding: 3rem;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .about-card p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem; line-height: 1.9;
+    color: rgba(245,240,235,0.7);
+    margin-bottom: 1rem;
+  }
+  .about-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,16,46,0.15);
+    border: 1px solid rgba(200,16,46,0.3);
+    padding: 0.5rem 1rem;
+    font-family: 'Cinzel', serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--red); margin-top: 1.5rem;
+  }
+  .about-pillars {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
+  }
+  .pillar {
+    padding: 1.2rem;
+    border-left: 2px solid var(--red);
+    background: rgba(200,16,46,0.05);
+  }
+  .pillar-name {
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 0.3rem;
+  }
+  .pillar-desc {
+    font-size: 0.95rem; color: rgba(245,240,235,0.6); line-height: 1.5;
+  }
+
+  /* ── CLASSES ── */
+  #classes {
+    background: var(--black);
+    max-width: 1200px; margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+  .classes-header { text-align: center; margin-bottom: 3.5rem; }
+  .classes-header .red-line { margin: 0 auto 2rem; }
+  .classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .class-card {
+    background: var(--charcoal);
+    border: 1px solid rgba(200,16,46,0.15);
+    padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .class-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; width: 3px; height: 0;
+    background: var(--red);
+    transition: height 0.4s ease;
+  }
+  .class-card:hover { border-color: rgba(200,16,46,0.5); transform: translateY(-4px); }
+  .class-card:hover::before { height: 100%; }
+  .class-belt {
+    width: 40px; height: 8px; border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .belt-white { background: #eee; }
+  .belt-yellow { background: #f5c518; }
+  .belt-green { background: #2d8a4e; }
+  .belt-brown { background: #7c4a1e; }
+  .belt-black { background: #222; border: 1px solid #555; }
+  .class-name {
+    font-family: 'Cinzel', serif; font-size: 1rem;
+    color: var(--white); margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .class-desc {
+    font-size: 1rem; color: rgba(245,240,235,0.6);
+    line-height: 1.7; margin-bottom: 1.5rem;
+  }
+  .class-meta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'Cinzel', serif; font-size: 0.65rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--red); border: 1px solid rgba(200,16,46,0.4);
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* ── INSTRUCTORS ── */
+  #instructors {
+    background: var(--charcoal);
+    padding: 6rem 2rem;
+  }
+  .instructors-inner { max-width: 1100px; margin: 0 auto; }
+  .instructors-header { margin-bottom: 3.5rem; }
+  .instructors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+  .instructor-card {
+    background: var(--dark);
+    border: 1px solid rgba(200,16,46,0.12);
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .instructor-card:hover { transform: translateY(-6px); }
+  .instructor-photo {
+    height: 220px;
+    background: var(--mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    position: relative; overflow: hidden;
+  }
+  .instructor-photo::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px; background: var(--red);
+  }
+  .instructor-info { padding: 1.5rem; }
+  .instructor-name {
+    font-family: 'Cinzel', serif; font-size: 1rem;
+    color: var(--white); margin-bottom: 0.25rem;
+  }
+  .instructor-rank {
+    font-family: 'Cinzel', serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 0.75rem;
+  }
+  .instructor-bio {
+    font-size: 0.98rem; color: rgba(245,240,235,0.6);
+    line-height: 1.7;
+  }
+
+  /* ── GALLERY ── */
+  #gallery {
+    background: var(--black); padding: 6rem 2rem;
+  }
+  .gallery-inner { max-width: 1200px; margin: 0 auto; }
+  .gallery-header { text-align: center; margin-bottom: 3rem; }
+  .gallery-header .red-line { margin: 0 auto 2rem; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 200px);
+    gap: 0.75rem;
+  }
+  .gallery-item {
+    background: var(--mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; overflow: hidden;
+    position: relative;
+    transition: filter 0.3s;
+    cursor: pointer;
+  }
+  .gallery-item::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(200,16,46,0); transition: background 0.3s;
+  }
+  .gallery-item:hover::after { background: rgba(200,16,46,0.25); }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; background: linear-gradient(135deg, #1a0000, #2a0a0a); }
+  .gallery-item:nth-child(2) { grid-column: span 2; background: linear-gradient(135deg, #0a0a1a, #1a1a2a); }
+  .gallery-item:nth-child(3) { grid-column: span 2; background: linear-gradient(135deg, #0a1a00, #1a2a0a); }
+  .gallery-item:nth-child(4) { grid-column: span 2; background: linear-gradient(135deg, #1a0a00, #2a1500); }
+  .gallery-item:nth-child(5) { grid-column: span 2; background: linear-gradient(135deg, #1a001a, #2a0a2a); }
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.7); padding: 0.5rem 0.75rem;
+    font-family: 'Cinzel', serif; font-size: 0.6rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--light); opacity: 0; transition: opacity 0.3s;
+    z-index: 2;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* ── SCHEDULE ── */
+  #schedule {
+    background: var(--charcoal); padding: 6rem 2rem;
+  }
+  .schedule-inner { max-width: 1000px; margin: 0 auto; }
+  .schedule-header { text-align: center; margin-bottom: 3rem; }
+  .schedule-header .red-line { margin: 0 auto 2rem; }
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: 'Crimson Pro', serif;
+  }
+  .schedule-table th {
+    font-family: 'Cinzel', serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--red); padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(200,16,46,0.3);
+    text-align: left;
+  }
+  .schedule-table td {
+    padding: 1rem 1.5rem; font-size: 1rem;
+    color: rgba(245,240,235,0.8);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .schedule-table tr:hover td { background: rgba(200,16,46,0.05); }
+  .level-badge {
+    display: inline-block;
+    font-family: 'Cinzel', serif; font-size: 0.6rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0;
+  }
+  .beginner { background: rgba(50,150,50,0.2); color: #6fcf97; border: 1px solid rgba(50,150,50,0.4); }
+  .intermediate { background: rgba(250,180,50,0.15); color: #f2c94c; border: 1px solid rgba(250,180,50,0.3); }
+  .advanced { background: rgba(200,16,46,0.2); color: #eb5757; border: 1px solid rgba(200,16,46,0.4); }
+  .all-levels { background: rgba(100,100,200,0.15); color: #a8b4f0; border: 1px solid rgba(100,100,200,0.3); }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials {
+    background: var(--black); padding: 6rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  #testimonials::before {
+    content: '"'; position: absolute;
+    font-size: 30rem; color: rgba(200,16,46,0.04);
+    top: -5rem; left: -3rem;
+    font-family: Georgia, serif; line-height: 1;
+    user-select: none;
+  }
+  .testimonials-inner { max-width: 1100px; margin: 0 auto; }
+  .testimonials-header { text-align: center; margin-bottom: 3.5rem; }
+  .testimonials-header .red-line { margin: 0 auto 2rem; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .testimonial {
+    background: var(--charcoal);
+    border: 1px solid rgba(200,16,46,0.12);
+    padding: 2.5rem;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+  }
+  .testimonial::before {
+    content: '"'; font-size: 4rem; color: var(--red);
+    line-height: 0.8; display: block; margin-bottom: 1rem;
+    font-family: Georgia, serif;
+  }
+  .testimonial-text {
+    font-size: 1.1rem; font-style: italic;
+    color: rgba(245,240,235,0.8); line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .author-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: 0.85rem;
+    color: var(--white); flex-shrink: 0;
+  }
+  .author-name {
+    font-family: 'Cinzel', serif; font-size: 0.8rem;
+    letter-spacing: 0.1em; color: var(--white);
+  }
+  .author-level {
+    font-size: 0.85rem; color: rgba(245,240,235,0.5);
+    font-style: italic;
+  }
+  .stars { color: var(--red); font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--charcoal); padding: 6rem 2rem;
+  }
+  .contact-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label {
+    font-family: 'Cinzel', serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(245,240,235,0.6);
+  }
+  .form-input, .form-textarea {
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--light); padding: 0.9rem 1rem;
+    font-family: 'Crimson Pro', serif; font-size: 1rem;
+    outline: none; transition: border-color 0.3s;
+    width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--red);
+  }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+  }
+  .contact-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(200,16,46,0.15);
+    border: 1px solid rgba(200,16,46,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .contact-detail-label {
+    font-family: 'Cinzel', serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 0.3rem;
+  }
+  .contact-detail-val {
+    font-size: 1rem; color: rgba(245,240,235,0.8); line-height: 1.6;
+  }
+  .map-placeholder {
+    margin-top: 2rem;
+    height: 180px;
+    background: var(--dark);
+    border: 1px solid rgba(200,16,46,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 0.5rem;
+    color: rgba(245,240,235,0.3);
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(200,16,46,0.2);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem; color: var(--red); margin-bottom: 0.5rem;
+  }
+  .footer-motto {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic; font-size: 1rem;
+    color: rgba(245,240,235,0.4); margin-bottom: 2rem;
+  }
+  .footer-links {
+    display: flex; justify-content: center; gap: 2rem;
+    list-style: none; margin-bottom: 2rem; flex-wrap: wrap;
+  }
+  .footer-links a {
+    font-family: 'Cinzel', serif; font-size: 0.65rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(245,240,235,0.4); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--red); }
+  .footer-copy {
+    font-size: 0.85rem; color: rgba(245,240,235,0.25);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 2rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; height: 200px; }
+    .gallery-item:nth-child(n+2) { grid-column: span 1; height: 150px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SHOSHINKAI</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#instructors">Instructors</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-kanji">空</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. 2005 &nbsp;·&nbsp; Traditional Shotokan Karate</p>
+    <h1 class="hero-title">Shoshinkai<span>Academy</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">The Way of the Beginner's Heart</p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#classes">Explore Classes</a>
+      <a class="btn-outline" href="#contact">Free Trial Class</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">20+</span>
+      <span class="stat-label">Years of Excellence</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Students Trained</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">12</span>
+      <span class="stat-label">Championship Titles</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div>
+      <p class="section-label">Our Philosophy</p>
+      <h2 class="section-title">Forging Character Through Martial Excellence</h2>
+      <div class="red-line"></div>
+      <p class="section-body">
+        At Shoshinkai Academy, we believe the dojo is more than a training hall — it is a sanctuary for self-discovery. Rooted in the traditions of Shotokan Karate, our curriculum cultivates not only physical prowess but the virtues of discipline, respect, and resilience that transcend the mat and shape extraordinary lives.
+      </p>
+      <div class="about-pillars">
+        <div class="pillar">
+          <div class="pillar-name">Discipline</div>
+          <div class="pillar-desc">Structured training that builds lifelong habits of focus and perseverance.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-name">Respect</div>
+          <div class="pillar-desc">Honoring tradition, instructors, and fellow practitioners at every step.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-name">Courage</div>
+          <div class="pillar-desc">Pushing past limits and facing challenges with an open heart.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-name">Mastery</div>
+          <div class="pillar-desc">A relentless pursuit of technical precision and deeper understanding.</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <p>Founded on the principle of <em>shoshin</em> — the beginner's mind — our academy welcomes all students regardless of age or fitness level. We believe that the willingness to learn is the truest mark of a martial artist.</p>
+        <p>Our instruction draws from decades of lineage passed from grandmaster to master, preserving the authentic spirit of Shotokan while adapting to the modern student's journey.</p>
+        <div class="about-badge">🥋 &nbsp; JKA Affiliated Dojo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section id="classes" style="background:var(--black); padding: 6rem 2rem;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="classes-header">
+      <p class="section-label">Training Programs</p>
+      <h2 class="section-title">Classes for Every Path</h2>
+      <div class="red-line" style="margin:0 auto 1rem;"></div>
+      <p style="font-size:1.1rem; color:rgba(245,240,235,0.6); max-width:500px; margin: 0 auto; line-height:1.8;">From your first bow to the black belt and beyond, we have a program designed for your journey.</p>
+    </div>
+    <div class="classes-grid">
+      <div class="class-card">
+        <div class="class-belt belt-white"></div>
+        <div class="class-name">Little Dragons (Ages 4–7)</div>
+        <div class="class-desc">A playful introduction to movement, focus, and respect. Builds coordination, confidence, and listening skills through age-appropriate karate fundamentals.</div>
+        <div class="class-meta">
+          <span class="tag">Beginner</span>
+          <span class="tag">Ages 4–7</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-belt belt-yellow"></div>
+        <div class="class-name">Junior Warriors (Ages 8–14)</div>
+        <div class="class-desc">A structured belt curriculum building real technique, kata, and kumite skills. Youth develop leadership, sportsmanship, and mental toughness.</div>
+        <div class="class-meta">
+          <span class="tag">All Belts</span>
+          <span class="tag">Ages 8–14</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-belt belt-green"></div>
+        <div class="class-name">Adult Beginners</div>
+        <div class="class-desc">Never too late to begin. This class welcomes adults with zero experience into the world of Shotokan Karate with a supportive, encouraging environment.</div>
+        <div class="class-meta">
+          <span class="tag">Beginner</span>
+          <span class="tag">Ages 15+</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-belt belt-brown"></div>
+        <div class="class-name">Advanced Karate</div>
+        <div class="class-desc">For intermediate to advanced students seeking to refine techniques, deepen kata practice, and sharpen competition skills under expert guidance.</div>
+        <div class="class-meta">
+          <span class="tag">Intermediate</span>
+          <span class="tag">Advanced</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-belt belt-black"></div>
+        <div class="class-name">Black Belt Program</div>
+        <div class="class-desc">An elite program for dedicated students pursuing dan ranks. Intensive focus on leadership, teaching methodology, and mastery of the complete Shotokan syllabus.</div>
+        <div class="class-meta">
+          <span class="tag">Black Belt</span>
+          <span class="tag">Invitation</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-belt" style="background: linear-gradient(90deg, #e0e0e0, #f5c518, #2d8a4e, #7c4a1e, #111);"></div>
+        <div class="class-name">Self-Defence Workshop</div>
+        <div class="class-desc">Practical real-world self-defence techniques drawn from karate principles. Open to all ages and fitness levels — no prior experience needed.</div>
+        <div class="class-meta">
+          <span class="tag">All Levels</span>
+          <span class="tag">Workshop</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTORS -->
+<section id="instructors">
+  <div class="instructors-inner">
+    <div class="instructors-header">
+      <p class="section-label">Our Sensei</p>
+      <h2 class="section-title">Masters of the Art</h2>
+      <div class="red-line"></div>
+      <p class="section-body">Each of our instructors brings decades of training, competition experience, and a genuine passion for sharing the martial way.</p>
+    </div>
+    <div class="instructors-grid">
+      <div class="instructor-card">
+        <div class="instructor-photo">🥋</div>
+        <div class="instructor-info">
+          <div class="instructor-name">Sensei Hiroshi Tanaka</div>
+          <div class="instructor-rank">7th Dan · Chief Instructor</div>
+          <div class="instructor-bio">A former JKA national champion with over 35 years of Shotokan mastery. Sensei Tanaka founded the academy with a vision of accessible, authentic martial arts education.</div>
+        </div>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-photo">🥋</div>
+        <div class="instructor-info">
+          <div class="instructor-name">Sensei Maria Reyes</div>
+          <div class="instructor-rank">5th Dan · Head of Youth Programs</div>
+          <div class="instructor-bio">A 3-time state champion and certified youth coach, Sensei Reyes specializes in developing young practitioners with patience, creativity, and deep technical expertise.</div>
+        </div>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-photo">🥋</div>
+        <div class="instructor-info">
+          <div class="instructor-name">Sensei David Park</div>
+          <div class="instructor-rank">4th Dan · Fitness & Conditioning</div>
+          <div class="instructor-bio">Combining martial arts with sports science, Sensei Park brings modern conditioning methods to traditional training, helping students reach peak physical performance.</div>
+        </div>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-photo">🥋</div>
+        <div class="instructor-info">
+          <div class="instructor-name">Sensei Anika Mehta</div>
+          <div class="instructor-rank">3rd Dan · Adult & Beginners</div>
+          <div class="instructor-bio">Known for her warm, encouraging teaching style, Sensei Mehta makes karate accessible to adults of all ages and backgrounds with clarity, humour, and precision.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-inner">
+    <div class="gallery-header">
+      <p class="section-label">Gallery</p>
+      <h2 class="section-title">Life at the Dojo</h2>
+      <div class="red-line"></div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">🥋
+        <div class="gallery-caption">Championship Finals 2024</div>
+      </div>
+      <div class="gallery-item">🏆
+        <div class="gallery-caption">Junior Belt Ceremony</div>
+      </div>
+      <div class="gallery-item">🤼
+        <div class="gallery-caption">Kumite Training</div>
+      </div>
+      <div class="gallery-item">🧘
+        <div class="gallery-caption">Kata Practice</div>
+      </div>
+      <div class="gallery-item">⚔️
+        <div class="gallery-caption">Weapons Workshop</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="schedule-inner">
+    <div class="schedule-header">
+      <p class="section-label">Weekly Timetable</p>
+      <h2 class="section-title">Class Schedule</h2>
+      <div class="red-line"></div>
+    </div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Time</th>
+          <th>Class</th>
+          <th>Instructor</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Monday</td><td>5:00 PM – 6:00 PM</td><td>Little Dragons</td><td>Sensei Reyes</td><td><span class="level-badge beginner">Beginner</span></td></tr>
+        <tr><td>Monday</td><td>6:30 PM – 8:00 PM</td><td>Adult Karate</td><td>Sensei Tanaka</td><td><span class="level-badge all-levels">All Levels</span></td></tr>
+        <tr><td>Tuesday</td><td>4:30 PM – 5:30 PM</td><td>Junior Warriors</td><td>Sensei Reyes</td><td><span class="level-badge all-levels">All Belts</span></td></tr>
+        <tr><td>Tuesday</td><td>7:00 PM – 8:30 PM</td><td>Advanced Karate</td><td>Sensei Tanaka</td><td><span class="level-badge advanced">Advanced</span></td></tr>
+        <tr><td>Wednesday</td><td>6:00 PM – 7:00 PM</td><td>Adult Beginners</td><td>Sensei Mehta</td><td><span class="level-badge beginner">Beginner</span></td></tr>
+        <tr><td>Thursday</td><td>5:00 PM – 6:00 PM</td><td>Junior Warriors</td><td>Sensei Park</td><td><span class="level-badge intermediate">Intermediate</span></td></tr>
+        <tr><td>Thursday</td><td>7:00 PM – 8:30 PM</td><td>Black Belt Program</td><td>Sensei Tanaka</td><td><span class="level-badge advanced">Dan Ranks</span></td></tr>
+        <tr><td>Friday</td><td>5:30 PM – 7:00 PM</td><td>Fitness & Conditioning</td><td>Sensei Park</td><td><span class="level-badge all-levels">All Levels</span></td></tr>
+        <tr><td>Saturday</td><td>9:00 AM – 10:00 AM</td><td>Little Dragons</td><td>Sensei Reyes</td><td><span class="level-badge beginner">Beginner</span></td></tr>
+        <tr><td>Saturday</td><td>10:30 AM – 12:00 PM</td><td>Open Mat / Sparring</td><td>Sensei Mehta</td><td><span class="level-badge all-levels">All Levels</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-header">
+      <p class="section-label">Student Voices</p>
+      <h2 class="section-title">What Our Community Says</h2>
+      <div class="red-line"></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Joining Shoshinkai was a turning point for my son. In just six months, he's become more focused, confident, and respectful — qualities that have transformed his school life too.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SK</div>
+          <div>
+            <div class="author-name">Sarah K.</div>
+            <div class="author-level">Parent of Junior Student</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">I started as a complete beginner at 42 and thought I'd be the odd one out. Sensei Mehta made me feel welcome from day one. Two years in and I'm holding my blue belt with pride.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MR</div>
+          <div>
+            <div class="author-name">Marcus R.</div>
+            <div class="author-level">Adult Student · Blue Belt</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">The instruction here is world-class. Sensei Tanaka's attention to technical detail is unmatched. Training here has elevated my competition performance dramatically.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JP</div>
+          <div>
+            <div class="author-name">Jamie P.</div>
+            <div class="author-level">Competitive Student · Brown Belt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Begin Your Journey</h2>
+      <div class="red-line"></div>
+      <p class="section-body" style="margin-bottom:2.5rem;">Your first class is on us. Fill out the form and a member of our team will be in touch within 24 hours to schedule your free trial session.</p>
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input class="form-input" type="text" placeholder="Your name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="your@email.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input class="form-input" type="tel" placeholder="+1 (000) 000-0000"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell us about yourself, your goals, or which class interests you..."></textarea>
+        </div>
+        <button class="btn-primary" style="align-self:flex-start; font-size:0.75rem;">Book Free Trial →</button>
+      </div>
+    </div>
+    <div class="contact-info">
+      <div>
+        <p class="section-label">Find Us</p>
+        <h3 style="font-family:'Cinzel',serif; font-size:1.2rem; color:var(--white); margin-bottom:1.5rem;">Shoshinkai Academy Dojo</h3>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-detail-label">Address</div>
+          <div class="contact-detail-val">1247 Bushido Drive, Suite 100<br/>Tampa, FL 33601</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-detail-label">Phone</div>
+          <div class="contact-detail-val">(813) 555-0198</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-val">info@shoshinkaiacademy.com</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-detail-label">Office Hours</div>
+          <div class="contact-detail-val">Mon – Fri: 3:00 PM – 9:00 PM<br/>Saturday: 8:00 AM – 1:00 PM</div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        🗺️
+        <span>Interactive Map</span>
+        <span style="font-size:0.6rem; opacity:0.6;">Tampa, FL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Shoshinkai Academy</div>
+  <div class="footer-motto">"In the beginner's mind there are many possibilities. In the expert's mind there are few." — Shunryu Suzuki</div>
+  <ul class="footer-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Shoshinkai Academy. All Rights Reserved. &nbsp;·&nbsp; Shotokan Karate · Tampa, FL</div>
+</footer>
+
+</body>
+</html>
